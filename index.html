@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html lang="en" style="--accent: #1a4fa0; --font: 'Arial',sans-serif;"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Zhang Lab · Sensory Neuroimmunology · Rutgers NJMS</title>
+<style id="theme-style">
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:var(--font);background:#fff;color:var(--text);font-size:var(--base-size)}
+:root{
+  --gold:#b8912a;--red:#b02020;--blue:#1a4fa0;
+  --light:#f8f7f5;--border:#e8e4de;--muted:#6b6560;--text:#1a1a1a;
+  --accent:#1a4fa0;--font:'Helvetica Neue',Arial,sans-serif;--base-size:16px;
+}
+
+/* EDIT MODE */
+[contenteditable]{outline:none;cursor:text}
+[contenteditable]:hover{background:rgba(37,99,235,0.04);border-radius:3px}
+[contenteditable]:focus{background:rgba(37,99,235,0.07);border-radius:3px;outline:2px solid rgba(37,99,235,0.25)}
+.edit-img-btn{position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.6);color:#fff;border:none;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;border-radius:4px;z-index:10;letter-spacing:0.04em;backdrop-filter:blur(4px)}
+.edit-img-btn:hover{background:rgba(0,0,0,0.85)}
+.img-wrap{position:relative}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:80px;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200}
+.nav-logo{font-size:32px;font-weight:800;color:var(--text);line-height:1}.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:12px;color:var(--muted);text-decoration:none;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;transition:color .18s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+section{display:none}section.active{display:block}
+
+.hero{position:relative;height:560px;overflow:hidden;background:#000}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.05),rgba(0,0,0,0.65))}
+.hero-content{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:3rem}
+.eyebrow{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:10px}
+.hero h1{font-size:calc(var(--base-size)*2.2);font-weight:800;line-height:1.1;max-width:100%;color:#fff;margin-bottom:0.9rem;white-space:nowrap}
+.hero h1 em{font-style:normal;color:#f0c96a}
+.hero-sub{font-size:calc(var(--base-size)*0.875);color:rgba(255,255,255,0.7);margin-bottom:1.5rem;max-width:480px;line-height:1.7}
+.hero-btns{display:flex;gap:12px}
+.btn-white{background:#fff;color:var(--text);border:none;padding:10px 24px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.05em}
+.btn-white:hover{background:#eee}
+.btn-outline-w{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.55);padding:10px 24px;font-size:12px;cursor:pointer;letter-spacing:0.05em}
+.btn-outline-w:hover{border-color:#fff}
+
+.intro{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
+.intro-text{padding:3rem;border-right:1px solid var(--border)}
+.intro-text h2{font-size:calc(var(--base-size)*1.2);font-weight:700;margin-bottom:1rem}
+.intro-text p{font-size:calc(var(--base-size)*0.875);color:var(--muted);line-height:1.85}
+.intro-pillars{padding:3rem;display:flex;flex-direction:column;gap:1.25rem}
+.ip{display:flex;gap:14px;align-items:flex-start}
+.ip-bar{width:3px;min-height:44px;flex-shrink:0;margin-top:2px}
+.ip-body h4{font-size:calc(var(--base-size)*0.75);font-weight:700;margin-bottom:4px}
+.ip-body p{font-size:calc(var(--base-size)*0.75);color:var(--muted);line-height:1.6}
+
+.concept-section{padding:4rem 3rem;border-bottom:1px solid var(--border);background:#fff}
+.concept-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.concept-text .kicker{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:1rem}
+.concept-text h2{font-size:calc(var(--base-size)*1.4);font-weight:700;line-height:1.2;margin-bottom:1.25rem}
+.concept-text h2 em{font-style:normal;color:var(--accent)}
+.concept-text p{font-size:calc(var(--base-size)*0.875);color:var(--muted);line-height:1.85;margin-bottom:1rem}
+.concept-pillars{display:flex;flex-direction:column;gap:0;margin-top:1.5rem}
+.cp{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border)}
+.cp:last-child{border-bottom:none}
+.cp-num{font-size:11px;font-weight:700;color:var(--accent);min-width:20px;padding-top:1px;opacity:0.6}
+.cp-body h4{font-size:calc(var(--base-size)*0.75);font-weight:700;margin-bottom:3px}
+.cp-body p{font-size:calc(var(--base-size)*0.75);color:var(--muted);line-height:1.55}
+.concept-fig img{width:100%;max-width:480px;max-height:640px;object-fit:contain;border-radius:8px;display:block;margin:0 auto}
+.concept-fig-caption{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5;text-align:center;font-style:italic}
+
+.news-strip{padding:2rem 3rem;border-bottom:1px solid var(--border);background:var(--light)}
+.slabel{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;font-weight:700}
+.nrow{display:flex;gap:1.5rem;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--border)}
+.nrow:last-child{border-bottom:none}
+.nd{font-size:11px;color:var(--muted);min-width:58px}
+.nt{font-size:calc(var(--base-size)*0.8125);color:var(--text);line-height:1.5;flex:1}
+.nbadge{font-size:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+
+.phdr{position:relative;height:240px;overflow:hidden;background:#000}
+.phdr-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:0.9}
+.phdr-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.55) 100%)}
+.phdr-c{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:2.5rem 3rem}
+.phdr-c h1{font-size:calc(var(--base-size)*2.5);font-weight:800;color:#fff;margin-bottom:8px;line-height:1.05}
+.phdr-c p{font-size:calc(var(--base-size)*0.8125);color:rgba(255,255,255,0.7);max-width:600px;line-height:1.65}
+
+.ra-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border)}
+.ra{background:#fff;padding:2.5rem 2rem;border-left:3px solid transparent}
+.ra h3{font-size:calc(var(--base-size)*0.75);font-weight:700;margin-bottom:9px;text-transform:uppercase;letter-spacing:0.05em}
+.ra p{font-size:calc(var(--base-size)*0.8125);color:var(--muted);line-height:1.75;margin-bottom:1rem}
+.tag{font-size:10px;padding:2px 8px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;margin-right:5px;margin-bottom:4px;display:inline-block}
+.approach-bar{padding:2rem 3rem;background:var(--light);border-top:1px solid var(--border)}
+
+.pi-block{display:grid;grid-template-columns:220px 1fr;border-bottom:1px solid var(--border)}
+.pi-photo{background:var(--light);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--border);min-height:240px;padding:2rem}
+.pi-initials{width:110px;height:110px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;color:#fff}
+.pi-info{padding:2.5rem 3rem}
+.pi-info h2{font-size:calc(var(--base-size)*1.2);font-weight:700;margin-bottom:4px}
+.pi-role{font-size:10px;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:3px;font-weight:700}
+.pi-inst{font-size:11px;color:var(--muted);margin-bottom:8px}
+.pi-award{display:inline-block;font-size:10px;padding:3px 10px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;background:rgba(26,79,160,0.08);color:var(--accent);margin-bottom:14px;border:1px solid rgba(26,79,160,0.2)}
+.pi-info p{font-size:calc(var(--base-size)*0.8125);color:var(--muted);line-height:1.85;max-width:560px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--border)}
+.pcard{background:#fff;padding:2rem}
+.pav{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;margin-bottom:1rem;color:#fff;background:var(--accent)}
+.pcard h3{font-size:calc(var(--base-size)*0.8125);font-weight:700;margin-bottom:4px}
+.prole{font-size:10px;color:var(--muted);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:8px}
+.pint{font-size:calc(var(--base-size)*0.75);color:var(--muted);line-height:1.6}
+
+.section-hdr{padding:2rem 3rem 0.75rem;display:flex;align-items:center;gap:16px}
+.section-hdr h2{font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;white-space:nowrap}
+.shline{flex:1;height:1px;background:var(--border)}
+.pub-list{padding:0 3rem 0.5rem;display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.pub{background:#fff;padding:1.5rem 2rem;border-left:3px solid transparent}
+.pub-yr{font-size:10px;color:var(--muted);letter-spacing:0.1em;margin-bottom:6px;text-transform:uppercase}
+.pub-ti{font-size:calc(var(--base-size)*0.875);font-weight:700;margin-bottom:6px;line-height:1.45}
+.pub-au{font-size:11px;color:var(--muted);margin-bottom:6px;line-height:1.6}
+.pub-au em{color:var(--accent);font-style:normal;font-weight:700}
+.pub-jo{font-size:calc(var(--base-size)*0.75);color:var(--red);font-style:italic}
+.pub-link{font-size:11px;color:var(--accent);text-decoration:none;display:inline-block;margin-top:6px}
+.pub-link:hover{text-decoration:underline}
+.prior-note{margin:0 3rem;padding:1rem 1.25rem;border:1px solid var(--border);font-size:12px;color:var(--muted);line-height:1.6;background:var(--light)}
+.spacer{height:2.5rem}
+
+.ng{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border)}
+.nc{background:#fff}.ntop{height:3px}.nb{padding:1.75rem 2rem}
+.nm{font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px}
+.nc h3{font-size:calc(var(--base-size)*0.875);font-weight:700;margin-bottom:8px;line-height:1.4}
+.nc p{font-size:calc(var(--base-size)*0.8125);color:var(--muted);line-height:1.6}
+
+.cwrap{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.cblock{background:#fff;padding:2.5rem 3rem}
+.cblock h3{font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem}
+.crow{display:flex;gap:10px;font-size:calc(var(--base-size)*0.8125);color:var(--muted);margin-bottom:12px;line-height:1.6;align-items:flex-start}
+.ci{color:var(--red);flex-shrink:0;margin-top:2px}
+.jband{background:var(--accent);padding:3rem;text-align:center}
+.jband h3{font-size:calc(var(--base-size)*1.1);font-weight:700;margin-bottom:10px;color:#fff}
+.jband p{font-size:calc(var(--base-size)*0.875);color:rgba(255,255,255,0.75);max-width:520px;margin:0 auto 1.8rem;line-height:1.7}
+.btn-jw{background:#fff;color:var(--accent);border:none;padding:11px 28px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.05em}
+footer{padding:1.5rem 3rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+
+/* ── TOOLBAR ── */
+#toolbar{position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;color:#fff;z-index:9999;display:flex;align-items:center;gap:0;height:52px;padding:0 1rem;font-family:system-ui,sans-serif;overflow-x:auto}
+.tb-group{display:flex;align-items:center;gap:6px;padding:0 12px;border-right:1px solid rgba(255,255,255,0.1);flex-shrink:0}
+.tb-group:last-child{border-right:none;margin-left:auto}
+.tb-label{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-right:4px;white-space:nowrap}
+.tb-btn{background:rgba(255,255,255,0.08);color:#fff;border:none;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;border-radius:4px;white-space:nowrap;transition:background .15s}
+.tb-btn:hover{background:rgba(255,255,255,0.18)}
+.tb-btn.active{background:var(--accent);color:#fff}
+.tb-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.15);padding:4px 8px;font-size:11px;border-radius:4px;cursor:pointer}
+.tb-select option{background:#1a1a1a;color:#fff}
+.color-dot{width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border-color .15s;flex-shrink:0}
+.color-dot:hover,.color-dot.active{border-color:#fff}
+.tb-range{width:80px;accent-color:var(--accent)}
+.tb-range-val{font-size:10px;color:rgba(255,255,255,0.5);min-width:28px}
+.dl-btn{background:var(--accent);color:#fff;border:none;padding:6px 16px;font-size:11px;font-weight:700;cursor:pointer;border-radius:4px;letter-spacing:0.05em;white-space:nowrap}
+.dl-btn:hover{opacity:0.85}
+.edit-hint{font-size:10px;color:rgba(255,255,255,0.35);white-space:nowrap}
+body{padding-bottom:52px}
+</style>
+</head>
+<body style="">
+<!-- TOOLBAR -->
+<!-- hidden file input for image upload -->
+<nav>
+<div class="nav-logo"><span>Zhang Lab</span>  ·  <span>Sensory Neuroimmunology · Rutgers NJMS</span></div>
+<ul class="nav-links">
+<li><a class="" id="nav-home" onclick="show('home')">Home</a></li>
+<li><a class="" id="nav-research" onclick="show('research')">Research</a></li>
+<li><a class="" id="nav-people" onclick="show('people')">People</a></li>
+<li><a class="" id="nav-publications" onclick="show('publications')">Publications</a></li>
+<li><a class="" id="nav-news" onclick="show('news')">News</a></li>
+<li><a class="active" id="nav-contact" onclick="show('contact')">Contact</a></li>
+</ul>
+</nav>
+<!-- HOME -->
+<section class="active" id="home">
+<div class="hero img-wrap">
+<img alt="Immunofluorescence — intestinal tissue" class="hero-img" id="hero-img" src="web_img_b3_873.jpg"/>
+<div class="hero-ov"></div>
+<div class="hero-content">
+<div class="eyebrow">Zhang Lab  ·  Rutgers NJMS  ·  Newark, NJ</div>
+<h1>Decoding <em>neuroimmune circuits</em> at barrier tissues</h1>
+<p class="hero-sub">We investigate how sensory neurons orchestrate immune responses in the gut — integrating microbial, dietary, and injury signals to control epithelial function, innate immunity, and adaptive responses.</p>
+<div class="hero-btns">
+<button class="btn-white" onclick="show('research')">Our research</button>
+<button class="btn-outline-w" onclick="show('contact')">Join the lab</button>
+</div>
+</div>
+</div>
+<div class="intro">
+<div class="intro-text">
+<h2>How do sensory neurons shape immunity?</h2>
+<p>The Zhang lab investigates how peripheral sensory neurons orchestrate immune responses in the gut — integrating microbial, dietary, and injury signals to control epithelial function, innate immunity, and adaptive responses. Our long-term goal is to identify neuroimmune pathways that can be therapeutically targeted to treat inflammatory bowel disease, food allergy, infection, and colorectal cancer.</p>
+</div>
+<div class="intro-pillars">
+<div class="ip"><div class="ip-bar" style="background:var(--gold)"></div><div class="ip-body"><h4 style="color:var(--gold)">Intestinal homeostasis</h4><p>Neuroimmune circuits that maintain gut health and drive tissue repair after injury or infection.</p></div></div>
+<div class="ip"><div class="ip-bar" style="background:var(--red)"></div><div class="ip-body"><h4 style="color:var(--red)">Sensory–immune crosstalk</h4><p>How nociceptors regulate antigen-specific immune responses in health and disease.</p></div></div>
+<div class="ip"><div class="ip-bar accent-bg" style="background: rgb(26, 79, 160);"></div><div class="ip-body"><h4 class="accent-text" style="color: rgb(26, 79, 160);">Spatial multi-omics</h4><p>Mapping neuroimmune communication within tissues at single-cell resolution.</p></div></div>
+<div class="ip"><div class="ip-bar" style="background:var(--gold)"></div><div class="ip-body"><h4 style="color:var(--gold)">Cancer immunology</h4><p>Neuroimmune pathways in colorectal cancer initiation and anti-tumor immunity.</p></div></div>
+</div>
+</div>
+<!-- CONCEPT SECTION -->
+<div class="concept-section">
+<div class="concept-inner">
+<div class="concept-text">
+<div class="kicker">Featured on the cover of Nature · 2026</div>
+<h2>Sensory convergence: a systems framework for <em>immune decision-making</em></h2>
+<p>The immune system does not operate in isolation. Peripheral sensory neurons continuously sample the tissue environment — integrating neuronal, microbial, tissue, and immune signals — and relay this information to shape immune outcomes at barrier surfaces.</p>
+<p>Our lab proposes that <strong>sensory convergence nodes</strong> — innervated stromal cells, tissue-resident immune cells, and neuro-immune synapses — act as computational hubs that integrate these diverse inputs and direct immune decisions toward protection, tolerance, repair, or inflammation.</p>
+<div class="concept-pillars">
+<div class="cp"><div class="cp-num">01</div><div class="cp-body"><h4>Convergence nodes</h4><p>Innervated stromal cells, tissue-resident immune cells, and neuro-immune synapses integrate Ca²⁺, cAMP, MAPK, and NF-kB signals to coordinate immune outcomes.</p></div></div>
+<div class="cp"><div class="cp-num">02</div><div class="cp-body"><h4>Signal integration</h4><p>Sensory inputs — neuropeptides, PAMPs, DAMPs, cytokines — converge on shared intracellular pathways to drive context-dependent immune responses.</p></div></div>
+<div class="cp"><div class="cp-num">03</div><div class="cp-body"><h4>Plasticity and memory</h4><p>Inflammation rewires convergence nodes, creating neuroimmune memory that underlies chronic disease and cancer susceptibility.</p></div></div>
+</div>
+</div>
+<div class="concept-fig img-wrap">
+<img alt="Sensory convergence framework" id="concept-img" src="web_nature_cover_cropped.jpg"/>
+</div>
+</div>
+</div>
+<div class="news-strip">
+<div class="slabel">Latest news</div>
+<div class="nrow"><div class="nd">2026</div><div class="nt">New paper in <em>Nature</em> — neuronal-epithelial circuits promote sensory convergence and intestinal immunity.</div><span class="nbadge" style="background:rgba(176,32,32,0.08);color:var(--red);border:1px solid rgba(176,32,32,0.2)">Publication</span></div>
+<div class="nrow"><div class="nd">Active</div><div class="nt">NIH NIDDK K99/R00 Pathway to Independence Award supporting the Zhang lab at Rutgers NJMS.</div><span class="nbadge accent-badge" style="background: rgba(26, 79, 160, 0.094); color: rgb(26, 79, 160); border: 1px solid rgba(26, 79, 160, 0.2);">Grant</span></div>
+<div class="nrow"><div class="nd">2022</div><div class="nt">Paper in <em>Cell</em> — gut-innervating nociceptors regulate the intestinal microbiota to promote tissue protection.</div><span class="nbadge" style="background:rgba(176,32,32,0.08);color:var(--red);border:1px solid rgba(176,32,32,0.2)">Publication</span></div>
+</div>
+</section>
+<!-- RESEARCH -->
+<section class="" id="research">
+<div class="phdr img-wrap">
+<img alt="" class="phdr-img section-img" src="web_img_segmentation.jpg"/>
+<div class="phdr-ov"></div>
+<div class="phdr-c"><h1>Research</h1><p>We integrate immunology, neuroscience, microbiology, genetics, and spatial multi-omics to uncover neuroimmune pathways that can be targeted therapeutically.</p></div>
+</div>
+<div class="ra-grid">
+<div class="ra" style="border-left-color:var(--gold)"><h3 style="color:var(--gold)">Intestinal homeostasis and tissue repair</h3><p>Defining neuroimmune circuits that maintain gut homeostasis and promote tissue repair after injury or infection. We study how sensory neurons integrate environmental and microbial cues to coordinate immune responses.</p><span class="tag" style="background:rgba(184,145,42,0.1);color:var(--gold)">IBD</span><span class="tag" style="background:rgba(184,145,42,0.1);color:var(--gold)">Tissue repair</span></div>
+<div class="ra" style="border-left-color:var(--red)"><h3 style="color:var(--red)">Antigen-specific immune responses</h3><p>Understanding how sensory neurons regulate adaptive immunity during health and inflammatory disease, with relevance to food allergy and infection.</p><span class="tag" style="background:rgba(176,32,32,0.08);color:var(--red)">Food allergy</span><span class="tag" style="background:rgba(176,32,32,0.08);color:var(--red)">Adaptive immunity</span></div>
+<div class="ra accent-border" style="border-left-color: rgb(26, 79, 160);"><h3 class="accent-text" style="color: rgb(26, 79, 160);">INTESTINAL EPITHELIAL CELLS, MICROBIOTA, AND SPATIAL IMMUNITY</h3><p>Investigating how sensory neurons regulate epithelial signals that shape the localization, interactions, and function of immune cells at the intestinal barrier.</p><span class="tag accent-tag" style="background: rgba(26, 79, 160, 0.133); color: rgb(26, 79, 160);">EPITHELIAL cells</span><span class="tag accent-tag" style="background: rgba(26, 79, 160, 0.133); color: rgb(26, 79, 160);">Microbiota</span></div>
+<div class="ra" style="border-left-color:var(--gold)"><h3 style="color:var(--gold)">Spatial multi-omics</h3><p>Developing spatial transcriptomics, single-cell genomics, and computational approaches to map neuroimmune communication within intact tissues.</p><span class="tag" style="background:rgba(184,145,42,0.1);color:var(--gold)">scRNA-seq</span><span class="tag" style="background:rgba(184,145,42,0.1);color:var(--gold)">Spatial omics</span></div>
+</div>
+<div class="approach-bar"><div class="slabel">Approaches</div><p style="font-size:13px;color:var(--muted);line-height:1.9;max-width:680px">Genetically engineered mouse models  ·  Advanced imaging  ·  Spatial transcriptomics  ·  Single-cell genomics  ·  Computational biology  ·  Chemogenetics  ·  Germ-free and gnotobiotic models  ·  Flow cytometry </p></div>
+</section>
+<!-- PEOPLE -->
+<section class="" id="people">
+<div class="phdr img-wrap">
+<img alt="" class="phdr-img section-img" src="web_img_segmentation.jpg"/>
+<div class="phdr-ov"></div>
+<div class="phdr-c"><h1>People</h1><p>A collaborative, interdisciplinary team driven by curiosity about the nervous and immune systems.</p></div>
+</div>
+<div class="pi-block">
+<div class="pi-photo img-wrap" style="position:relative;flex-direction:column;gap:12px">
+<div id="pi-initials-wrap">
+<img alt="Dr. Wen Zhang" id="pi-photo-img" src="profile_photo.jpg" style="display: block; width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: center top; border-color: rgb(26, 79, 160); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ;"/>
+<div class="pi-initials" id="pi-initials" style="background: rgb(26, 79, 160); display: none;">WZ</div>
+</div>
+
+</div>
+<div class="pi-info">
+<h2>Wen Zhang, PhD</h2>
+<div class="pi-role">Principal Investigator</div>
+<div class="pi-inst">Assistant Professor  ·  Center for Immunity and Inflammation  ·  Dept. of Pharmacology, Physiology and Neuroscience  ·  Rutgers New Jersey Medical School</div>
+<div class="pi-award">NIH NIDDK K99/R00 Pathway to Independence Award</div>
+<p>Dr. Zhang received her PhD in Immunology from Tsinghua University and completed postdoctoral training in the laboratory of Dr. David Artis at Weill Cornell Medicine. Her work has uncovered fundamental neuroimmune circuits through which sensory neurons regulate intestinal immunity and epithelial remodeling, with publications in Nature, Cell, Science Immunology, and other leading journals. At Rutgers, her laboratory combines immunology, neuroscience, microbiology, genetics, and spatial multi-omics to identify therapeutic targets for inflammatory bowel disease, food allergy, infection, and colorectal cancer.</p>
+</div>
+</div>
+<div class="pgrid">
+<div class="pcard"><div class="pav" style="background:var(--gold)">—</div><h3>Graduate students</h3><div class="prole">PhD Program</div><div class="pint">Positions available — apply through Rutgers NJMS graduate programs.</div></div>
+<div class="pcard"><div class="pav" style="background: rgb(26, 79, 160);">—</div><h3>Postdoctoral fellows</h3><div class="prole">Postdoc</div><div class="pint">Open positions — contact Dr. Zhang with your CV and a brief research statement.</div></div>
+<div class="pcard" style="background:var(--light);border:1.5px dashed var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:160px;text-align:center"><div style="font-size:2rem;color:var(--border);margin-bottom:8px">+</div><div style="font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Join the team</div></div>
+</div>
+</section>
+<!-- PUBLICATIONS -->
+<section class="" id="publications">
+<div class="phdr img-wrap">
+<img alt="" class="phdr-img section-img" src="web_img_segmentation.jpg"/>
+<div class="phdr-ov"></div>
+<div class="phdr-c"><h1>Publications</h1><p>* co-first author  ·  Zhang W highlighted throughout</p></div>
+</div>
+<div class="section-hdr"><h2 class="accent-text" style="color: rgb(26, 79, 160);">Zhang Lab · Rutgers NJMS</h2><div class="shline"></div></div>
+<div class="pub-list">
+<div class="pub" style="border-left-color:var(--red)">
+<div class="pub-yr">2026</div>
+<div class="pub-ti">Neuronal-epithelial circuits promote sensory convergence and intestinal immunity</div>
+<div class="pub-au"><em>Zhang W</em>, <span>Emanuel ER, Yano H, Uddin J, Gaudino S, Xie Z, Ichise H, Wang Z, Cowan MN, Lyu M, Hou X, Zeng P, Hu E, Godoy VR, Grier A, Estep N, Ishibashi JR, Anover-Sombke S, Skene PJ, Mayassi T, Xavier RJ, Germain RN, Globig AM, Heeg M, Goldrath AW, Kim B, Hu H, Artis D.</span></div>
+<div class="pub-jo">Nature (2026)</div>
+<a class="pub-link" href="https://doi.org/10.1038/s41586-025-09921-z" target="_blank">doi.org/10.1038/s41586-025-09921-z ↗</a>
+</div>
+</div>
+<div class="spacer"></div>
+<div class="section-hdr"><h2 style="color:var(--muted)">Selected prior work</h2><div class="shline"></div></div>
+<div class="prior-note"><br/></div>
+<div class="pub-list" style="margin-top:1px">
+<div class="pub" style="border-left-color:var(--gold)"><div class="pub-yr">2022</div><div class="pub-ti">Gut-innervating nociceptors regulate the intestinal microbiota to promote tissue protection</div><div class="pub-au"><em>Zhang W</em>, <span>Lyu M, Bessman NJ, Xie Z, Mohammad A, Yano H, Parkhurst CN, Chu C, Zhou L, Putzel GP, Li TT, Jin WB, Zhou J, JRI LCB, Hu H, Tsou AM, Guo CJ, Artis D.</span></div><div class="pub-jo">Cell · 185 (22): 4170–4189</div></div>
+<div class="pub accent-border" style="border-left-color: rgb(26, 79, 160);"><div class="pub-yr">2021</div><div class="pub-ti">The ChAT-acetylcholine pathway promotes group 2 innate lymphoid cell responses and anti-helminth immunity</div><div class="pub-au"><span>Chu C, Parkhurst C*, Zhang W*, Zhou L, Yano H, Mohammad A, Artis D.</span></div><div class="pub-jo">Science Immunology · 57 (6): eabe3218</div></div>
+<div class="pub" style="border-left-color:var(--border)"><div class="pub-yr">2020</div><div class="pub-ti">Manganese is critical for antitumor immune responses via cGAS-STING and improves the efficacy of clinical immunotherapy</div><div class="pub-au">Lv M, Chen M, Zhang R, Zhang W, Wang C, Zhang Y, Wei X, Guan Y, Liu J, Feng K, Jing M, Wang X, Liu Y, Mei Q, Han W, Jiang Z.</div><div class="pub-jo">Cell Research · 30 (11): 966–979</div></div>
+<div class="pub" style="border-left-color:var(--border)"><div class="pub-yr">2018</div><div class="pub-ti">The E3 ligases Itch and WWP2 cooperate to limit Th2 differentiation by enhancing signaling through the TCR</div><div class="pub-au">Aki D*, Li H*, Zhang W*, Zheng M, Elly C, Lee JH, Zou WG, Liu YC.</div><div class="pub-jo">Nature Immunology · 19: 766–775</div></div>
+<div class="pub" style="border-left-color:var(--border)"><div class="pub-yr">2018</div><div class="pub-ti">The E3 ligase VHL controls alveolar macrophage function via metabolic-epigenetic regulation</div><div class="pub-au">Zhang W, Li Q, Li D, Li J, Aki D, Liu YC.</div><div class="pub-jo">Journal of Experimental Medicine · 215 (12): 3180–3193</div></div>
+</div>
+<div class="spacer"></div>
+</section>
+<!-- NEWS -->
+<section class="" id="news">
+<div class="phdr img-wrap">
+<img alt="" class="phdr-img section-img" src="web_img_segmentation.jpg"/>
+<div class="phdr-ov"></div>
+<div class="phdr-c"><h1>News</h1><p>Lab updates, publications, grants, and events.</p></div>
+</div>
+<div class="ng">
+<div class="nc"><div class="ntop" style="background:var(--red)"></div><div class="nb"><div class="nm">2026 · Publication</div><h3>Nature paper: neuronal-epithelial circuits and intestinal immunity</h3><p>Our latest work reveals how neuronal-epithelial circuits promote sensory convergence and orchestrate intestinal immune responses.</p></div></div>
+<div class="nc"><div class="ntop accent-bg" style="background: rgb(26, 79, 160);"></div><div class="nb"><div class="nm">Active · Grant</div><h3>NIH NIDDK K99/R00 Pathway to Independence Award</h3><p>Dr. Zhang is the recipient of the NIH NIDDK K99/R00 award, supporting her independent research program at Rutgers NJMS.</p></div></div>
+<div class="nc"><div class="ntop" style="background:var(--red)"></div><div class="nb"><div class="nm">2022 · Publication</div><h3>Cell paper: nociceptors regulate the intestinal microbiota</h3><p>Gut-innervating nociceptors actively regulate the intestinal microbiota to promote tissue protection — a landmark finding in neuroimmunology.</p></div></div>
+<div class="nc"><div class="ntop" style="background:var(--gold)"></div><div class="nb"><div class="nm">Ongoing · Recruitment</div><h3>We are recruiting graduate students and postdocs</h3><p>The Zhang lab is actively recruiting motivated trainees with backgrounds in neuroscience, immunology, or related fields.</p></div></div>
+</div>
+</section>
+<!-- CONTACT -->
+<section class="" id="contact">
+<div class="phdr img-wrap">
+<img alt="" class="phdr-img section-img" src="web_img_segmentation.jpg"/>
+<div class="phdr-ov"></div>
+<div class="phdr-c"><h1>Contact</h1><p>We welcome inquiries from prospective students, postdocs, and collaborators.</p></div>
+</div>
+<div class="cwrap">
+<div class="cblock"><h3>Location</h3>
+<div class="crow"><span class="ci">●</span><span>Center for Immunity and Inflammation, Dept. of Pharmacology, Physiology and Neuroscience<br/>Rutgers New Jersey Medical School<br/>Newark, NJ</span></div>
+<div class="crow"><span class="ci">●</span><span class="accent-text" style="color: rgb(26, 79, 160);">wz514@njms.rutgers.edu</span></div>
+<div class="crow"><span class="ci">●</span><a class="accent-text" href="https://i3d.rutgers.edu/people/wen-zhang-phd-department-of-pharmacology-physiology-and-neuroscience/" style="font-size: 13px; color: rgb(26, 79, 160);" target="_blank">Faculty profile — Rutgers i3D ↗</a></div>
+</div>
+<div class="cblock"><h3>Join the lab</h3>
+<p style="font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:1rem">We are recruiting PhD students — apply through the Rutgers NJMS graduate programs.</p>
+<p style="font-size:13px;color:var(--muted);line-height:1.85">Prospective postdocs: send your CV, a brief statement of research interests, and contact information for three references directly to Dr. Zhang.</p>
+</div>
+</div>
+<div class="jband" style="background: rgb(26, 79, 160);"><h3>Interested in joining us?</h3><p>We are an inclusive, collaborative lab that values rigorous science and creative thinking. If you are excited about the intersection of neuroscience and immunity, we would love to hear from you.</p><button class="btn-jw" style="color: rgb(26, 79, 160);">Get in touch</button></div>
+</section>
+<footer><span>Zhang Lab  ·  Sensory Neuroimmunology  ·  Rutgers NJMS</span><span>© 2026</span></footer>
+<script>
+var currentAccent = '#1a4fa0';
+var uploadTarget = null;
+
+function show(id){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('nav-'+id).classList.add('active');
+  ['home','research','people','publications','news','contact'].forEach(s=>{
+    var tb=document.getElementById('tb-'+s);
+    if(tb) tb.classList.toggle('active', s===id);
+  });
+  window.scrollTo(0,0);
+}
+
+function setImg(id, src, btn, group){
+  document.getElementById(id).src = src;
+  if(btn && group){
+    document.querySelectorAll('[id^="'+group+'-"]').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+}
+
+function setSectionImgs(src, btn){
+  document.querySelectorAll('.section-img').forEach(img=>img.src=src);
+  document.querySelectorAll('[id^="sb-"]').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+
+function setAccent(color, btn){
+  currentAccent = color;
+  document.documentElement.style.setProperty('--accent', color);
+  document.querySelectorAll('.accent-text').forEach(el=>el.style.color=color);
+  document.querySelectorAll('.accent-border').forEach(el=>el.style.borderLeftColor=color);
+  document.querySelectorAll('.accent-bg').forEach(el=>el.style.background=color);
+  document.querySelectorAll('.accent-tag').forEach(el=>{el.style.background=color+'22';el.style.color=color;});
+  document.querySelectorAll('.accent-badge').forEach(el=>{el.style.background=color+'18';el.style.color=color;el.style.border='1px solid '+color+'33';});
+  document.querySelectorAll('.pi-initials,.pav:not([style*="gold"])').forEach(el=>el.style.background=color);
+  document.querySelectorAll('.jband').forEach(el=>el.style.background=color);
+  document.querySelectorAll('.btn-jw').forEach(el=>el.style.color=color);
+  document.querySelectorAll('.color-dot').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+
+function setFont(f){ document.documentElement.style.setProperty('--font',f); }
+function setSize(v){ document.documentElement.style.setProperty('--base-size',v+'px'); }
+
+function uploadImg(targetId){
+  uploadTarget = targetId;
+  document.getElementById('file-input').click();
+}
+
+function uploadSectionImg(btn){
+  uploadTarget = 'section';
+  uploadTargetBtn = btn;
+  document.getElementById('file-input').click();
+}
+
+function handleUpload(e){
+  var file = e.target.files[0];
+  if(!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev){
+    if(uploadTarget === 'section'){
+      document.querySelectorAll('.section-img').forEach(img=>img.src=ev.target.result);
+    } else {
+      var el = document.getElementById(uploadTarget);
+      if(el) el.src = ev.target.result;
+    }
+  };
+  reader.readAsDataURL(file);
+  e.target.value = '';
+}
+
+function download(){
+  var clone = document.documentElement.cloneNode(true);
+  // Remove toolbar and file input from download
+  var tb = clone.querySelector('#toolbar');
+  var fi = clone.querySelector('#file-input');
+  if(tb) tb.remove();
+  if(fi) fi.remove();
+  // Remove edit-img-btn buttons
+  clone.querySelectorAll('.edit-img-btn').forEach(b=>b.remove());
+  // Remove contenteditable attrs
+  clone.querySelectorAll('[contenteditable]').forEach(el=>el.removeAttribute('contenteditable'));
+  // Remove padding-bottom from body
+  clone.querySelector('body').style.paddingBottom = '0';
+  var blob = new Blob(['<!DOCTYPE html>\n'+clone.outerHTML],{type:'text/html'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'zhang_lab_website_final.html';
+  a.click();
+}
+
+function uploadProfilePhoto(){
+  document.getElementById('pi-photo-input').click();
+}
+
+function handleProfilePhoto(e){
+  var file = e.target.files[0];
+  if(!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev){
+    var img = document.getElementById('pi-photo-img');
+    var initials = document.getElementById('pi-initials');
+    img.src = ev.target.result;
+    img.style.display = 'block';
+    initials.style.display = 'none';
+    // update accent border on photo
+    img.style.borderColor = currentAccent;
+  };
+  reader.readAsDataURL(file);
+  e.target.value = '';
+}
+
+// init
+setAccent('#1a4fa0', null);
+</script>
+</body></html>
